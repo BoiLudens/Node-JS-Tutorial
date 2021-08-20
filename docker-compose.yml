@@ -1,11 +1,11 @@
-version: "2"
+version: '2'
 
 services:
-  nodeguide:
-    build: .
-    image: nodeguideimage
-    volumes:
-      - .:/usr/app/
-      - /usr/app/node_modules
-    ports:
-      - "80:3000"
+    nodeguide:
+        build: .
+        image: nodeguideimage
+        volumes:
+            - .:/usr/app/
+            - /usr/app/node_modules
+        ports:
+            - '80:3000'
