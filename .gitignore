@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # identifying data
-data/products.*
+products.json
