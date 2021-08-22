@@ -2,3 +2,12 @@ extends ../layouts/main-layout.pug
 
 block styles 
     link(rel="stylesheet", href="/css/main.css")
+block content
+    main 
+        if products.length > 0
+            ul 
+                each productData in products
+                    //- - console.log(productData)
+                    //- li #{productData.title} 
+        else
+            h1 No Products in Cart!

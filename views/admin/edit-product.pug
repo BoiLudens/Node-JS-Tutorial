@@ -3,23 +3,38 @@ extends ../layouts/main-layout.pug
 block styles 
     link(rel="stylesheet", href="/css/main.css")
     link(rel="stylesheet", href="/css/product.css")
+    link(rel="stylesheet", href="/css/forms.css")
 block content
-        main 
-            if prods.length > 0
-                .grid
-                    each product in prods
-                        article.card.product-item 
-                            header.card__header
-                                h1.product__title #{product.title}
-                            .card__image 
-                                img(src=product.imageUrl, alt="")
-                            .card__content 
-                                h2.product__price #{product.price}
-                                p.product__description #{product.description}
-                            .card__actions 
-                                a(href="/admin/edit-product") Edit
-                                button.btn Delete
-                                form(action="/admin/delete-product", method="POST")
-                                    button.btn(type="Submit") Delete
-            else 
-                h1 No Products
+    main
+        if editing
+            - var formUrl ="/admin/edit-product"
+            - var id = product.id
+            - var title = product.title
+            - var imageUrl = product.imageUrl 
+            - var price = product.price 
+            - var description = product.description
+            - var buttonText = "Update Product"
+        else 
+            - var formUrl ="/admin/add-product"
+            - var id = ''
+            - var title = ''
+            - var imageUrl = ''
+            - var price = ''
+            - var description = ''
+            - var buttonText = "Add Product"
+        form.product-form(action=formUrl , method="POST")
+            .form-control
+                label(for="title") Title
+                input(type="text", name="title", id="title", value=title)
+            .form-control
+                label(for="imageUrl") Image URL
+                input(type="text", name="imageUrl", id="imageUrl", value=imageUrl)
+            .form-control
+                label(for="price") Price
+                input(type="number", name="price", id="price" step="0.01", value=price)
+            .form-control
+                label(for="description") Description
+                textarea(name="description", id="description", rows="5" value=description)
+            if editing
+                input(type="hidden", name="id", value=product.id)
+            button(type="submit") #{buttonText}
