@@ -6,8 +6,12 @@ block content
     main 
         if products.length > 0
             ul 
-                each productData in products
-                    //- - console.log(productData)
-                    //- li #{productData.title} 
+                each p in products
+                    li 
+                        p #{p.productData.title} (#{p.qty})
+                        form(action="/cart-delete-item", method="POST")
+                            input(type="hidden" value=p.productData.id, name="productId")
+                            button(class="btn", type="submit") Delete
+
         else
             h1 No Products in Cart!

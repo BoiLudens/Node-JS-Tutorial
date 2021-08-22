@@ -63,10 +63,12 @@ exports.postCart = (req, res, next) => {
   res.redirect('/cart');
 };
 
-exports.postDeleteCartItem = (req, res, next) => {
+exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Cart.deleteCartItem(prodId);
-  res.redirect('/cart');
+  Product.findById(prodId, (product) => {
+    Cart.deleteProduct(product.id, product.price);
+    res.redirect('/cart');
+  });
 };
 
 exports.getCheckout = (req, res, next) => {
